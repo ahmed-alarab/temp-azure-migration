@@ -1,7 +1,7 @@
-# Node.js dependencies
+# Node.js dependencies (The biggest problem)
 node_modules
 
-# Build outputs
+# Build outputs (Should not be in the repo)
 build
 dist
 out
