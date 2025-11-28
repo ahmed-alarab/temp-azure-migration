@@ -1,0 +1,22 @@
+/* 1. Tailwind Directives MUST come first */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 2. Global styles */
+body {
+  margin: 0;
+  /* Replacing the complex system fonts with a simpler, Tailwind-friendly stack. 
+     Tailwind uses 'Inter' by default, so we set a basic sans-serif fallback. */
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

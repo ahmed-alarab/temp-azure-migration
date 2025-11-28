@@ -1,0 +1,46 @@
+# CI Build Pipeline for Azure Function App
+
+trigger:
+- main
+
+# CRITICAL: Use your active self-hosted agent pool
+pool:
+  name: DS2v2-SelfHosted-Pool
+
+variables:
+  functionProjectDirectory: 'myazurefunctionproject'
+  functionArtifactName: 'Function-Artifact'
+
+stages:
+- stage: BuildFunction
+  displayName: Build Azure Function App
+  jobs:
+  - job: BuildFunctionJob
+    steps:
+    # 1. Install Node.js (Version 18.x)
+    - task: NodeTool@0
+      displayName: 'Use Node.js 18.x'
+      inputs:
+        versionSpec: '18.x'
+
+    # 2. Install dependencies inside the function project folder
+    - script: npm install
+      displayName: 'npm install Function dependencies'
+      workingDirectory: '$(functionProjectDirectory)' # Runs 'npm install' inside the 'myazurefunctionproject' folder
+
+    # 3. Archive the entire project folder into a deployable ZIP
+    - task: ArchiveFiles@2
+      displayName: 'Archive Function App Files'
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/$(functionProjectDirectory)'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(functionArtifactName).zip'
+        replaceExistingArchive: true
+
+    # 4. Publish the ZIP file as an artifact
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Function Artifact'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: '$(functionArtifactName)'

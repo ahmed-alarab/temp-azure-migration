@@ -1,0 +1,37 @@
+# CI Build Pipeline for React Web App
+
+trigger:
+- main # Triggers the pipeline when code is pushed to the main branch
+
+# CRITICAL: Use your active self-hosted agent pool
+pool:
+  name: DS2v2-SelfHosted-Pool
+
+variables:
+  reactBuildDirectory: 'build' # Standard output folder for Create React App
+  webArtifactName: 'WebApp-Artifact' # Name the deployable output
+
+stages:
+- stage: Build
+  displayName: Build React Web App
+  jobs:
+  - job: BuildJob
+    steps:
+    # 1. Install Node.js (Version 18.x ensures compatibility)
+    - task: NodeTool@0
+      displayName: 'Use Node.js 18.x'
+      inputs:
+        versionSpec: '18.x'
+
+    # 2. Install dependencies and run the production build
+    - script: |
+        npm install
+        npm run build
+      displayName: 'npm install and build'
+
+    # 3. Publish the 'build' folder as an artifact for the release pipeline
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Web App Artifact'
+      inputs:
+        PathtoPublish: '$(System.DefaultWorkingDirectory)/$(reactBuildDirectory)'
+        ArtifactName: '$(webArtifactName)'

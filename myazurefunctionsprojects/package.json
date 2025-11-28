@@ -1,0 +1,17 @@
+{
+  "name": "azure-project-functions",
+  "version": "1.0.0",
+  "description": "Azure Function App with two different triggers (HTTP and Timer) for the project.",
+  "main": "index.js",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.0.0",
+    "dotenv": "^16.3.1"
+    // Note: When you connect to SQL, you will add the 'tedious' or 'mssql' package here.
+  },
+  "devDependencies": {},
+  "private": true
+}

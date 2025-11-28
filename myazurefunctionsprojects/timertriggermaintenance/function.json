@@ -1,0 +1,13 @@
+{
+  "bindings": [
+    {
+      "name": "myTimer",
+      "type": "timerTrigger",
+      "direction": "in",
+      // CRON Expression: Run every 30 minutes
+      "schedule": "0 */30 * * * *" 
+    }
+  ],
+  "scriptFile": "../index.js" 
+  // IMPORTANT: This path points up one level to the main index.js file
+}
