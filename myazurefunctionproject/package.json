@@ -10,7 +10,6 @@
   "dependencies": {
     "@azure/functions": "^4.0.0",
     "dotenv": "^16.3.1"
-    // Note: When you connect to SQL, you will add the 'tedious' or 'mssql' package here.
   },
   "devDependencies": {},
   "private": true
